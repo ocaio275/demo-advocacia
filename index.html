@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<!--
+  Layout e código: © 2026 Caio S. O. Santos. Todos os direitos reservados.
+  Página de demonstração com dados fictícios. Reprodução, cópia ou reutilização
+  do código somente mediante autorização do autor.
+-->
+<title>Lima Torres Advocacia</title>
+<meta name="description" content="Escritório de advocacia em São Paulo: direito civil, família, trabalhista, consumidor e imobiliário. Atendimento online e presencial.">
+<meta property="og:title" content="Lima Torres Advocacia">
+<meta property="og:description" content="Atendimento jurídico com clareza em cada etapa. Fale pelo WhatsApp ou agende uma conversa.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: página única de leitura linear, coluna de texto à esquerda, painéis de apoio à direita; verde-tinta sobre cinza-papel, sem ornamentos. */
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --fg: #17212b;
+  --muted: #56626d;
+  --line: #d7dbd6;
+  --accent: #1b6a49;
+  --accent-fg: #ffffff;
+  --accent-soft: #e3efe8;
+  --demo-bg: #17212b;
+  --demo-fg: #e8ece9;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter: max(16px, calc((100% - 1120px) / 2));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1614;
+    --surface: #16201d;
+    --fg: #e8ece9;
+    --muted: #a0aca6;
+    --line: #2a3631;
+    --accent: #5cc597;
+    --accent-fg: #08150f;
+    --accent-soft: #17302a;
+    --demo-bg: #e8ece9;
+    --demo-fg: #0f1614;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1614;
+  --surface: #16201d;
+  --fg: #e8ece9;
+  --muted: #a0aca6;
+  --line: #2a3631;
+  --accent: #5cc597;
+  --accent-fg: #08150f;
+  --accent-soft: #17302a;
+  --demo-bg: #e8ece9;
+  --demo-fg: #0f1614;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.1rem, 4.8vw, 3.5rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.6rem, 2.8vw, 2.25rem); letter-spacing: -0.005em; }
+h3 { font-size: 1.3rem; }
+p { margin: 0; }
+a { color: inherit; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.demo-bar {
+  background: var(--demo-bg);
+  color: var(--demo-fg);
+  font-size: 0.8125rem;
+  padding: 8px var(--gutter);
+  line-height: 1.4;
+}
+
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: 0 var(--gutter);
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+.brand { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; text-decoration: none; letter-spacing: -0.01em; }
+.brand small { display: block; font-family: var(--font-body); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); line-height: 1.2; }
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a { text-decoration: none; font-size: 0.9375rem; color: var(--muted); }
+.nav a:hover { color: var(--fg); }
+.nav-toggle {
+  display: none;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font: inherit; font-weight: 600; font-size: 1rem;
+  padding: 14px 22px; border-radius: 2px; border: 1px solid transparent;
+  text-decoration: none; cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary { background: var(--accent); color: var(--accent-fg); }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--fg); border-color: var(--fg); }
+.btn-ghost:hover { background: var(--accent-soft); }
+.btn-sm { padding: 9px 16px; font-size: 0.9375rem; }
+.btn svg { flex: none; }
+
+section { padding: clamp(48px, 7vw, 92px) var(--gutter); }
+.section-head { max-width: 640px; display: grid; gap: 14px; margin-bottom: clamp(28px, 4vw, 48px); }
+.section-head p { color: var(--muted); }
+.alt { background: var(--surface); border-block: 1px solid var(--line); }
+
+/* Hero */
+.hero { padding-block: clamp(48px, 8vw, 104px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.hero-copy { display: grid; gap: 24px; }
+.hero-copy .lead { font-size: 1.1875rem; color: var(--muted); max-width: 54ch; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+.hero-panel { background: var(--surface); border: 1px solid var(--line); padding: 28px; display: grid; gap: 18px; }
+.hero-panel h3 { font-size: 1.15rem; }
+.facts { display: grid; gap: 0; }
+.facts li { display: grid; gap: 2px; padding: 12px 0; border-top: 1px solid var(--line); }
+.facts li:first-child { border-top: 0; padding-top: 0; }
+.facts b { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+/* Áreas */
+.areas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 36px 40px; }
+.areas li { border-top: 2px solid var(--fg); padding-top: 16px; display: grid; gap: 8px; align-content: start; }
+.areas p { color: var(--muted); font-size: 0.9688rem; }
+
+/* Sobre */
+.about-grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.portrait {
+  width: 100%; max-width: 100%; aspect-ratio: 4 / 5;
+  background: var(--accent-soft); border: 1px solid var(--line);
+  display: grid; place-items: center; align-content: center; gap: 8px; text-align: center;
+  color: var(--accent);
+}
+.portrait span.mono { font-family: var(--font-display); font-size: 4.5rem; font-weight: 500; line-height: 1; }
+.portrait span.cap { font-size: 0.8125rem; color: var(--muted); }
+.about-copy { display: grid; gap: 18px; max-width: 62ch; }
+.about-copy .reg { font-size: 0.875rem; color: var(--muted); letter-spacing: 0.02em; }
+.sample-note { font-size: 0.8125rem; color: var(--muted); border-left: 2px solid var(--line); padding-left: 12px; }
+
+/* Atendimento */
+.flow-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.steps { display: grid; gap: 0; counter-reset: step; }
+.steps li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 16px; padding: 20px 0; border-top: 1px solid var(--line); counter-increment: step; }
+.steps li:last-child { border-bottom: 1px solid var(--line); }
+.steps li::before { content: counter(step); font-family: var(--font-display); font-size: 2.2rem; line-height: 1; color: var(--accent); }
+.steps h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.steps p { color: var(--muted); }
+.docs { background: var(--bg); border: 1px solid var(--line); padding: 24px; display: grid; gap: 14px; }
+.docs h3 { font-size: 1.15rem; }
+.docs li { padding-left: 18px; position: relative; color: var(--muted); }
+.docs li + li { margin-top: 8px; }
+.docs li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 2px; background: var(--accent); }
+
+/* FAQ */
+.faq { max-width: 780px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative;
+  font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; line-height: 1.3;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-family: var(--font-body); font-size: 1.5rem; color: var(--accent); }
+.faq details[open] summary::after { content: "\2212"; }
+.faq details p { color: var(--muted); padding: 0 40px 22px 0; max-width: 64ch; }
+
+/* Contato */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.contact-info { display: grid; gap: 24px; }
+.info-list { display: grid; gap: 0; }
+.info-list li { display: grid; gap: 2px; padding: 14px 0; border-top: 1px solid var(--line); }
+.info-list li:first-child { border-top: 0; padding-top: 0; }
+.info-list b { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.map { border: 1px solid var(--line); background: var(--accent-soft); }
+.map svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.map p { padding: 10px 14px; font-size: 0.8125rem; color: var(--muted); border-top: 1px solid var(--line); background: var(--surface); }
+form { background: var(--bg); border: 1px solid var(--line); padding: clamp(20px, 3vw, 32px); display: grid; gap: 18px; }
+.alt form { background: var(--bg); }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-size: 0.875rem; font-weight: 600; }
+.field input, .field select, .field textarea {
+  font: inherit; color: var(--fg); background: var(--surface);
+  border: 1px solid var(--muted); border-radius: 2px; padding: 11px 12px; width: 100%; min-width: 0;
+}
+.field textarea { min-height: 120px; resize: vertical; }
+.field .err { font-size: 0.8125rem; color: var(--accent); min-height: 1.2em; }
+.field [aria-invalid="true"] { border-color: var(--fg); border-width: 2px; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.consent { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; font-size: 0.875rem; color: var(--muted); }
+.consent input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); }
+.consent a { color: var(--fg); }
+.form-status { font-size: 0.9375rem; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--accent-soft); }
+.form-status[hidden] { display: none; }
+
+/* Privacidade e rodapé */
+.privacy { background: var(--bg); }
+.privacy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 28px 48px; }
+.privacy-grid h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.privacy-grid p { color: var(--muted); font-size: 0.9375rem; }
+.site-footer { background: var(--demo-bg); color: var(--demo-fg); padding: 36px var(--gutter) calc(36px + env(safe-area-inset-bottom, 0px)); display: grid; gap: 14px; font-size: 0.875rem; }
+.site-footer a { color: inherit; }
+.footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; }
+.site-footer .legal { opacity: 0.8; max-width: 80ch; }
+
+/* WhatsApp flutuante */
+.wa-float {
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 30;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+section[id], .privacy[id] { scroll-margin-top: 72px; }
+
+@media (max-width: 860px) {
+  .hero-grid, .about-grid, .flow-grid, .contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .portrait { max-width: 280px; }
+  .nav-toggle { display: inline-flex; }
+  .nav {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px var(--gutter) 16px;
+  }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px 0; border-top: 1px solid var(--line); font-size: 1rem; }
+  .nav a:first-child { border-top: 0; }
+  .nav .btn { margin-top: 8px; }
+  .site-header { position: sticky; }
+}
+@media (max-width: 520px) {
+  .two { grid-template-columns: minmax(0, 1fr); }
+  .cta-row .btn { width: 100%; }
+  .wa-float span { display: none; }
+  .wa-float { padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">Página de demonstração de layout. Nome do escritório, advogado, número da OAB, endereço, telefones e textos são fictícios.</div>
+
+<header class="site-header">
+  <div class="header-row">
+    <a class="brand" href="#topo">Lima Torres<small>Advocacia</small></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="nav" id="menu" aria-label="Principal">
+      <a href="#areas">Áreas de atuação</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#atendimento">Atendimento</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href="#contato">Contato</a>
+      <a class="btn btn-primary btn-sm" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20um%20atendimento." target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="hero" aria-labelledby="titulo-hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1 id="titulo-hero">Orientação jurídica clara, do primeiro contato ao acompanhamento do caso.</h1>
+        <p class="lead">Escritório em São Paulo com atuação em direito civil, de família, trabalhista, do consumidor e imobiliário. Ouvimos o seu caso, explicamos as alternativas possíveis e combinamos os honorários por escrito antes de começar.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20um%20atendimento." target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+            Conversar pelo WhatsApp
+          </a>
+          <a class="btn btn-ghost" href="#contato">Enviar mensagem</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Informações de atendimento">
+        <h3>Como atendemos</h3>
+        <ul class="facts">
+          <li><b>Modalidade</b><span>Online (vídeo ou WhatsApp) e presencial, com hora marcada</span></li>
+          <li><b>Horário</b><span>Segunda a sexta, das 9h às 18h</span></li>
+          <li><b>Sigilo</b><span>Tudo o que você conta fica protegido pelo sigilo profissional</span></li>
+          <li><b>Honorários</b><span>Informados e formalizados em contrato antes do início</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section id="areas" class="alt" aria-labelledby="titulo-areas">
+    <div class="section-head">
+      <h2 id="titulo-areas">Áreas de atuação</h2>
+      <p>Cada caso é analisado individualmente. Não é possível prometer resultados nem prazos; o que oferecemos é uma avaliação honesta das alternativas.</p>
+    </div>
+    <ul class="areas">
+      <li><h3>Direito Civil</h3><p>Contratos, responsabilidade civil, cobranças e questões de posse e propriedade.</p></li>
+      <li><h3>Família e Sucessões</h3><p>Divórcio, guarda, pensão alimentícia, inventário e testamento.</p></li>
+      <li><h3>Trabalhista</h3><p>Rescisão, verbas devidas, jornada e demais relações de trabalho, para empregados e empregadores.</p></li>
+      <li><h3>Consumidor</h3><p>Cobranças indevidas, defeitos em produtos e falhas na prestação de serviços.</p></li>
+      <li><h3>Imobiliário</h3><p>Compra e venda, locação, regularização de imóveis e questões de condomínio.</p></li>
+      <li><h3>Empresarial</h3><p>Contratos, abertura de empresas e orientação jurídica preventiva.</p></li>
+    </ul>
+  </section>
+
+  <section id="sobre" aria-labelledby="titulo-sobre">
+    <div class="about-grid">
+      <div class="portrait" role="img" aria-label="Espaço reservado para a foto do advogado">
+        <span class="mono">HL</span>
+        <span class="cap">Foto profissional do advogado</span>
+      </div>
+      <div class="about-copy">
+        <h2 id="titulo-sobre">Sobre o escritório</h2>
+        <p>O Lima Torres Advocacia nasceu da vontade de explicar o Direito em linguagem direta. Acreditamos que o cliente decide melhor quando entende o cenário, os custos e os limites de cada caminho.</p>
+        <p>O escritório é conduzido pelo Dr. Henrique Lima, advogado com atuação em demandas cíveis, familiares e trabalhistas, em primeira e segunda instâncias. A rotina inclui retorno sobre o andamento do processo pelo canal que o cliente preferir.</p>
+        <p class="reg">Dr. Henrique Lima · OAB/SP nº 000.000 (número de exemplo)</p>
+        <p class="sample-note">Textos de exemplo. O conteúdo final é enviado e aprovado pelo escritório, que responde pelo cumprimento das regras de publicidade da OAB.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="atendimento" class="alt" aria-labelledby="titulo-atendimento">
+    <div class="section-head">
+      <h2 id="titulo-atendimento">Como funciona o atendimento</h2>
+    </div>
+    <div class="flow-grid">
+      <ol class="steps">
+        <li><div><h3>Primeiro contato</h3><p>Por WhatsApp, telefone ou formulário. Retornamos em horário comercial para entender, de forma resumida, o que aconteceu.</p></div></li>
+        <li><div><h3>Conversa inicial</h3><p>Analisamos o caso e os documentos e informamos se podemos atuar, quais são as alternativas e o que esperar de cada uma.</p></div></li>
+        <li><div><h3>Honorários por escrito</h3><p>Valores, forma de pagamento e escopo do trabalho constam em contrato assinado antes de qualquer providência.</p></div></li>
+        <li><div><h3>Acompanhamento</h3><p>Você recebe atualizações sobre o andamento pelo canal combinado, com explicações em linguagem simples.</p></div></li>
+      </ol>
+      <aside class="docs" aria-label="Documentos úteis">
+        <h3>Documentos que ajudam na primeira conversa</h3>
+        <ul>
+          <li>Documento de identificação e CPF</li>
+          <li>Comprovante de residência atualizado</li>
+          <li>Contratos, recibos e comprovantes ligados ao caso</li>
+          <li>Notificações, intimações ou mensagens recebidas</li>
+          <li>Um resumo cronológico dos fatos, mesmo que informal</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section id="duvidas" aria-labelledby="titulo-duvidas">
+    <div class="section-head">
+      <h2 id="titulo-duvidas">Perguntas frequentes</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>A primeira conversa tem custo?</summary>
+        <p>As condições da primeira conversa, inclusive a eventual cobrança de consulta, são informadas antes do atendimento. Nenhum serviço é iniciado sem contrato de honorários.</p>
+      </details>
+      <details>
+        <summary>Vocês atendem online?</summary>
+        <p>Sim. O atendimento pode ser por videochamada ou WhatsApp. O atendimento presencial é feito com hora marcada.</p>
+      </details>
+      <details>
+        <summary>Qual o prazo para resolver o meu caso?</summary>
+        <p>O prazo depende do tipo de demanda e do andamento no Judiciário, e por isso não é possível garantir datas nem resultados. Após analisar o caso, explicamos o cenário esperado e as etapas previstas.</p>
+      </details>
+      <details>
+        <summary>Meus dados e documentos ficam protegidos?</summary>
+        <p>Sim. As informações são cobertas pelo sigilo profissional e tratadas conforme a Lei Geral de Proteção de Dados. A política completa está no fim desta página.</p>
+      </details>
+      <details>
+        <summary>Posso mandar documentos antes da conversa?</summary>
+        <p>Pode, mas só envie depois de combinar o canal com o escritório. Evite mandar documentos pessoais por formulário ou mensagem sem necessidade.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="contato" class="alt" aria-labelledby="titulo-contato">
+    <div class="section-head">
+      <h2 id="titulo-contato">Fale com o escritório</h2>
+      <p>Escolha o canal que for mais confortável. Não inclua dados sensíveis ou detalhes do caso nesta primeira mensagem.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <ul class="info-list">
+          <li><b>Endereço</b><span>Av. Exemplo, 1000, sala 00, Bela Vista, São Paulo/SP (fictício)</span></li>
+          <li><b>WhatsApp</b><span>(11) 90000-0000</span></li>
+          <li><b>Telefone</b><span>(11) 0000-0000</span></li>
+          <li><b>E-mail</b><span>contato@lima-torres.example</span></li>
+          <li><b>Horário</b><span>Segunda a sexta, das 9h às 18h</span></li>
+        </ul>
+        <div class="map">
+          <svg viewBox="0 0 600 300" role="img" aria-label="Representação ilustrativa do mapa de localização">
+            <rect x="0" y="0" width="600" height="300" style="fill: var(--accent-soft)"/>
+            <g style="fill: var(--surface); stroke: var(--line); stroke-width: 1">
+              <rect x="20" y="20" width="150" height="90"/>
+              <rect x="190" y="20" width="130" height="90"/>
+              <rect x="340" y="20" width="110" height="90"/>
+              <rect x="470" y="20" width="110" height="90"/>
+              <rect x="20" y="140" width="150" height="70"/>
+              <rect x="340" y="140" width="110" height="70"/>
+              <rect x="470" y="140" width="110" height="70"/>
+              <rect x="20" y="240" width="300" height="40"/>
+              <rect x="340" y="240" width="240" height="40"/>
+            </g>
+            <path d="M0 125 H600" style="stroke: var(--muted); stroke-width: 10; fill: none; opacity: 0.35"/>
+            <path d="M180 0 V300" style="stroke: var(--muted); stroke-width: 6; fill: none; opacity: 0.35"/>
+            <path d="M330 0 V300" style="stroke: var(--muted); stroke-width: 6; fill: none; opacity: 0.35"/>
+            <path d="M460 0 V300" style="stroke: var(--muted); stroke-width: 6; fill: none; opacity: 0.35"/>
+            <path d="M0 225 H600" style="stroke: var(--muted); stroke-width: 6; fill: none; opacity: 0.35"/>
+            <g>
+              <path d="M255 52 C 237 52 224 66 224 84 C 224 106 255 138 255 138 C 255 138 286 106 286 84 C 286 66 273 52 255 52 Z" style="fill: var(--accent)"/>
+              <circle cx="255" cy="84" r="11" style="fill: var(--accent-fg)"/>
+            </g>
+          </svg>
+          <p>Representação ilustrativa. Na página publicada, o mapa do Google Maps é incorporado e há um link "Como chegar".</p>
+        </div>
+      </div>
+
+      <form id="form-contato" novalidate aria-label="Formulário de contato">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input id="nome" name="nome" type="text" autocomplete="name" required>
+          <span class="err" id="err-nome"></span>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="telefone">Telefone com DDD</label>
+            <input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000" required>
+            <span class="err" id="err-telefone"></span>
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+            <span class="err" id="err-email"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="assunto">Área do assunto</label>
+          <select id="assunto" name="assunto">
+            <option>Direito Civil</option>
+            <option>Família e Sucessões</option>
+            <option>Trabalhista</option>
+            <option>Consumidor</option>
+            <option>Imobiliário</option>
+            <option>Empresarial</option>
+            <option>Outro assunto</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" required></textarea>
+          <span class="err" id="err-mensagem"></span>
+        </div>
+        <div class="field">
+          <div class="consent">
+            <input id="consentimento" name="consentimento" type="checkbox" required>
+            <label for="consentimento" style="font-weight: 400">Li a <a href="#privacidade">Política de Privacidade</a> e concordo com o uso dos meus dados para retorno deste contato.</label>
+          </div>
+          <span class="err" id="err-consentimento"></span>
+        </div>
+        <button class="btn btn-primary" type="submit">Enviar mensagem</button>
+        <p class="form-status" id="status" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="privacidade" class="privacy" aria-labelledby="titulo-privacidade">
+    <div class="section-head">
+      <h2 id="titulo-privacidade">Política de Privacidade</h2>
+      <p>Modelo de exemplo baseado na Lei Geral de Proteção de Dados (Lei nº 13.709/2018). O texto final deve ser revisado pelo escritório.</p>
+    </div>
+    <div class="privacy-grid">
+      <div><h3>Quem trata os dados</h3><p>Lima Torres Advocacia, na condição de controladora. Contato para assuntos de privacidade: privacidade@lima-torres.example.</p></div>
+      <div><h3>Dados coletados</h3><p>Nome, telefone, e-mail e a mensagem enviada pelo formulário. Ao usar o WhatsApp, também valem as regras do aplicativo.</p></div>
+      <div><h3>Finalidade e base legal</h3><p>Responder ao seu contato e avaliar a possibilidade de atendimento, com base no seu consentimento.</p></div>
+      <div><h3>Compartilhamento</h3><p>Os dados não são vendidos nem usados para propaganda de terceiros. Serviços de hospedagem e e-mail atuam como operadores.</p></div>
+      <div><h3>Por quanto tempo</h3><p>Pelo tempo necessário ao atendimento e ao cumprimento de obrigações legais e profissionais. Depois disso, os dados são eliminados.</p></div>
+      <div><h3>Seus direitos</h3><p>Você pode pedir confirmação do tratamento, acesso, correção, eliminação e revogação do consentimento, nos termos do art. 18 da LGPD.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <span><strong>Lima Torres Advocacia</strong> · OAB/SP nº 000.000 (exemplo)</span>
+    <a href="#privacidade">Política de Privacidade</a>
+  </div>
+  <p class="legal">As informações desta página têm caráter exclusivamente informativo, não constituem aconselhamento jurídico e não representam promessa de resultado, em conformidade com as regras de publicidade da advocacia estabelecidas pela OAB.</p>
+  <p class="legal">Página de demonstração com dados fictícios. Layout e código © 2026 Caio S. O. Santos; reprodução somente mediante autorização.</p>
+</footer>
+
+<a class="btn btn-primary wa-float" href="https://wa.me/5500000000000?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20um%20atendimento." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Lima Torres Advocacia",
+  "description": "Escritório de advocacia em São Paulo (dados fictícios de demonstração).",
+  "areaServed": "São Paulo, SP",
+  "openingHours": "Mo-Fr 09:00-18:00"
+}
+</script>
+
+<script>
+(function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var menu = document.getElementById('menu');
+  toggle.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  var form = document.getElementById('form-contato');
+  var statusEl = document.getElementById('status');
+
+  function setError(id, msg) {
+    var input = document.getElementById(id);
+    var err = document.getElementById('err-' + id);
+    err.textContent = msg;
+    if (msg) { input.setAttribute('aria-invalid', 'true'); } else { input.removeAttribute('aria-invalid'); }
+    return !msg;
+  }
+
+  function validate() {
+    var nome = document.getElementById('nome').value.trim();
+    var tel = document.getElementById('telefone').value.replace(/\D/g, '');
+    var email = document.getElementById('email').value.trim();
+    var msg = document.getElementById('mensagem').value.trim();
+    var ok = true;
+    ok = setError('nome', nome.length < 3 ? 'Informe o seu nome.' : '') && ok;
+    ok = setError('telefone', (tel.length < 10 || tel.length > 11) ? 'Informe o telefone com DDD.' : '') && ok;
+    ok = setError('email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Informe um e-mail válido.' : '') && ok;
+    ok = setError('mensagem', msg.length < 10 ? 'Escreva uma mensagem com pelo menos 10 caracteres.' : '') && ok;
+    ok = setError('consentimento', !document.getElementById('consentimento').checked ? 'É necessário concordar para enviar.' : '') && ok;
+    return ok;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    statusEl.hidden = true;
+    if (!validate()) {
+      statusEl.textContent = 'Revise os campos indicados e tente de novo.';
+      statusEl.hidden = false;
+      return;
+    }
+    statusEl.textContent = 'Demonstração: os campos foram validados, mas esta versão não envia e-mail. Na página publicada na hospedagem, a mensagem chega à caixa de entrada do escritório.';
+    statusEl.hidden = false;
+  });
+})();
+</script>
+
+</body>
+</html>
